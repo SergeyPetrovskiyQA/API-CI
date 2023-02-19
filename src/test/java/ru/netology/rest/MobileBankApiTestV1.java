@@ -44,17 +44,18 @@ class MobileBankApiTestV1 {
                 .get("/demo/accounts")
                 .then()
                 .body("[0].currency", equalTo("RUB"))
-                .body("[2].currency", equalTo("RUB"));
+                .body("[2].currency",equalTo("RUB"))
+                ;
     }
 
     @Test
-    void currencyUsdTest() {
+    void greaterThanZeroTest() {
         given()
                 .baseUri("http://localhost:9999/api/v1")
                 .when()
                 .get("/demo/accounts")
                 .then()
-                .body("[1].currency", equalTo("USD"))
+                .body("every { it.balance > 0}", is(true))
         ;
     }
 
@@ -67,6 +68,5 @@ class MobileBankApiTestV1 {
                 .then()
                 .contentType(ContentType.JSON);
     }
-
 
 }
